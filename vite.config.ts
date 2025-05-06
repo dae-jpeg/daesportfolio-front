@@ -22,5 +22,9 @@ export default defineConfig({
   server: {
     // @ts-ignore
     allowedHosts: true,
-  }
+    proxy: {
+      "/api": "http://127.0.0.1:8000", // Redirect API calls to Django
+    },
+  },
 });
+
