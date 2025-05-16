@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Send, Loader2 } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,24 +11,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+const RECAPTCHA_SITE_KEY = "6LdZmjwrAAAAAPk-_cuyy90gcCodmkTU_VoQeruj"; // 🔐 Replace this with your real site key
+
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
-  subject: z
-    .string()
-    .min(5, { message: "Subject must be at least 5 characters" }),
-  message: z
-    .string()
-    .min(10, { message: "Message must be at least 10 characters" }),
+  subject: z.string().min(5, { message: "Subject must be at least 5 characters" }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const {
     register,
@@ -48,12 +46,26 @@ const ContactForm = () => {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
+    if (!captchaToken) {
+      setSubmitStatus("error");
+      alert("Please complete the CAPTCHA before submitting.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Simulate API call with timeout
+      const payload = {
+        ...data,
+        captchaToken,
+      };
+
+      // Simulate API call or send this to your backend
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log("Form submitted:", data);
+      console.log("Form submitted with captcha:", payload);
+
       setSubmitStatus("success");
       reset();
+      setCaptchaToken(null);
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus("error");
@@ -139,6 +151,13 @@ const ContactForm = () => {
               {errors.message.message}
             </p>
           )}
+        </div>
+
+        <div className="flex justify-center">
+          <ReCAPTCHA
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={(token) => setCaptchaToken(token)}
+          />
         </div>
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>

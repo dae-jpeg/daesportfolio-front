@@ -5,6 +5,9 @@ import { Button } from "./ui/button";
 import ProjectsGrid from "./ProjectsGrid";
 import SkillsSection from "./SkillsSection";
 import ContactForm from "./ContactForm";
+import AboutMeSection from "./AboutMe";
+import EducationSection from "./Education";
+import HobbiesSection from "./Hobbies";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -54,6 +57,15 @@ const Home = () => {
             <Button variant="ghost" onClick={() => scrollToSection("skills")}>
               Skills
             </Button>
+            <Button variant="ghost" onClick={() => scrollToSection("about")}>
+              About Me
+            </Button>
+            <Button variant="ghost" onClick={() => scrollToSection("education")}>
+              Education
+            </Button>
+            <Button variant="ghost" onClick={() => scrollToSection("hobbies")}>
+              Hobbies
+            </Button>
             <Button variant="ghost" onClick={() => scrollToSection("contact")}>
               Contact
             </Button>
@@ -83,6 +95,24 @@ const Home = () => {
               </Button>
               <Button
                 variant="ghost"
+                onClick={() => scrollToSection("about")}
+              >
+                About Me
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection("education")}
+              >
+                Education
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection("hobbies")}
+              >
+                Hobbies
+              </Button>
+              <Button
+                variant="ghost"
                 onClick={() => scrollToSection("contact")}
               >
                 Contact
@@ -105,11 +135,10 @@ const Home = () => {
             className="max-w-3xl"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Creative Developer & Designer
+              Hello! I'm Dylan Ranola
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-10">
-              I craft beautiful, functional digital experiences with a focus on
-              user-centered design and clean code.
+              Computer Engineer / WebDeveloper / Designer / Gamer
             </p>
             <Button
               size="lg"
@@ -184,7 +213,66 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
+
+{/* About Me Section */}
+<section id="about" className="py-20 bg-muted/10">
+  <div className="container mx-auto px-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Enthusiastic and detail-oriented Computer Engineering student with a strong foundation in networking, embedded systems, and software development. Currently expanding knowledge in cybersecurity, aiming to apply analytical and problem-solving skills in security-related roles.
+      </p>
+    </motion.div>
+    <AboutMeSection />
+  </div>
+</section>
+
+
+{/* Education Section */}
+<section id="education" className="py-20 bg-background">
+  <div className="container mx-auto px-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Education</h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        A quick overview of my academic journey and qualifications.
+      </p>
+    </motion.div>
+    <EducationSection />
+  </div>
+</section>
+
+{/* Hobbies Section */}
+<section id="hobbies" className="py-20 bg-muted/10">
+  <div className="container mx-auto px-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Hobbies</h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Here’s what I enjoy doing when I’m not coding or designing.
+      </p>
+    </motion.div>
+    <HobbiesSection />
+  </div>
+</section>
+
+{/* Contact Section */}
       <section id="contact" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
